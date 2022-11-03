@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, random_split
 
 from utils import EarlyStopper
 from data import Movilens1MDataSet
-from model import FM, FMSlate, FMPfd, DeepFM, DeepFMslate, DeepFMPfd, NMF, NMFSlate, NMFPfd, WD, WDSlate, WDPfd, DCN, DCNSlate, DCNPfd
+from model import FM, FMSlate, FMPfd, NMF, NMFSlate, NMFPfd, WD, WDSlate, WDPfd
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -122,12 +122,6 @@ def get_model(args, feature_config):
         return FMSlate(args.emb_dim, feature_config)
     elif args.model_name.lower() == 'fmpfd':
         return FMPfd(args.emb_dim, feature_config)
-    elif args.model_name.lower() == 'deepfm':
-        return DeepFM(args.emb_dim, feature_config, mlp_dims=(16, 16))
-    elif args.model_name.lower() == 'deepfmslate':
-        return DeepFMslate(args.emb_dim, feature_config, mlp_dims=(16, 16))
-    elif args.model_name.lower() == 'deepfmpfd':
-        return DeepFMPfd(args.emb_dim, feature_config, mlp_dims=(16, 16))
     elif args.model_name.lower() == 'nmf':
         return NMF(args.emb_dim, feature_config, mlp_dims=(16, 16), out_alpha=0.5)
     elif args.model_name.lower() == 'nmfslate':
@@ -140,12 +134,6 @@ def get_model(args, feature_config):
         return WDSlate(args.emb_dim, feature_config, mlp_dims=(16, 16))
     elif args.model_name.lower() == 'wdpfd':
         return WDPfd(args.emb_dim, feature_config, mlp_dims=(16, 16))
-    elif args.model_name.lower() == 'dcn':
-        return DCN(args.emb_dim, feature_config, dcn_layer_num=3, mlp_dims=(16, 16))
-    elif args.model_name.lower() == 'dcnslate':
-        return DCNSlate(args.emb_dim, feature_config, dcn_layer_num=3, mlp_dims=(16, 16))
-    elif args.model_name.lower() == 'dcnpfd':
-        return DCNPfd(args.emb_dim, feature_config, dcn_layer_num=3, mlp_dims=(16, 16))
     else:
         raise NotImplemented
 
