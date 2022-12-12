@@ -13,7 +13,7 @@ from torch.utils.data import DataLoader, random_split
 
 from utils import EarlyStopper
 from data import Movilens1MDataSet
-from model import FM, FMSlate, FMPfd, NMF, NMFSlate, NMFPfd, WD, WDSlate, WDPfd
+from model import  NMF, NMFSlate, NMFPfd, WD, WDSlate, WDPfd, DeepFM, DeepFMslate, DeepFMPfd
 
 def get_args():
     parser = argparse.ArgumentParser()
