@@ -19,7 +19,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--dataset_name', type=str, default='movilens1M')
     parser.add_argument('--dataset_path', type=str, default='./datahub/movielens1M/movilens1M_slate_data.pkl')
-    parser.add_argument('--model_name', type=str, default='fmslate', help="[fm, fmslate, deepfm, deepfmslate]")
+    parser.add_argument('--model_name', type=str, default='nmfslate', help="[nmf, nmfslate, nmfpfd, wd, wdslate, wdpfd, deepfm, deepfmslate, deepfmpfd]")
     parser.add_argument('--emb_dim', type=int, default=16)
     parser.add_argument('--lr', type=float, default=0.01)
     parser.add_argument('--weight_decay', type=float, default=1e-6)
@@ -116,13 +116,7 @@ def test(model, data_loader, is_pfd=0):
     return roc_auc_score(targets, predicts)
 
 def get_model(args, feature_config):
-    if args.model_name.lower() == 'fm':
-        return FM(args.emb_dim, feature_config)
-    elif args.model_name.lower() == 'fmslate':
-        return FMSlate(args.emb_dim, feature_config)
-    elif args.model_name.lower() == 'fmpfd':
-        return FMPfd(args.emb_dim, feature_config)
-    elif args.model_name.lower() == 'nmf':
+    if args.model_name.lower() == 'nmf':
         return NMF(args.emb_dim, feature_config, mlp_dims=(16, 16), out_alpha=0.5)
     elif args.model_name.lower() == 'nmfslate':
         return NMFSlate(args.emb_dim, feature_config, mlp_dims=(16, 16), out_alpha=0.5)
